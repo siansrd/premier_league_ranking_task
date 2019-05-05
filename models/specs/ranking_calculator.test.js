@@ -76,4 +76,15 @@ describe('Ranking Calculator', () => {
     expect(teamsList[match.team2.key].losses).toBe(0);
   });
 
+  test('update teams goals for and goals against for a match', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const teamsList = calc.generateTeamList(matchDay1);
+    calc.updateGoals(teamsList, match);
+
+    expect(teamsList[match.team1.key].goalsFor).toBe(2);
+    expect(teamsList[match.team1.key].goalsAgainst).toBe(1);
+    expect(teamsList[match.team2.key].goalsFor).toBe(1);
+    expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
+  });
+
 });

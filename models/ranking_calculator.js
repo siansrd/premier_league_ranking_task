@@ -48,6 +48,13 @@ const rankingCalculator = {
     if (!result) return;
     teamsList[result.winner].wins += 1;
     teamsList[result.loser].losses +=1;
+  },
+
+  updateGoals(teamsList, match) {
+    teamsList[match.team1.key].goalsFor += match.score1;
+    teamsList[match.team1.key].goalsAgainst += match.score2;
+    teamsList[match.team2.key].goalsFor += match.score2;
+    teamsList[match.team2.key].goalsAgainst += match.score1;
   }
 
 }
