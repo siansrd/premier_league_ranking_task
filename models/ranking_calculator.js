@@ -15,6 +15,13 @@ const rankingCalculator = {
     return result;
   },
 
+  updateGoalDifferences(teamsList, match) {
+    const goalDifferences = this.calculateGoalDifferences(match);
+    for (const result in goalDifferences) {
+      teamsList[result].goalDifference = goalDifferences[result];
+    }   
+  },
+
   calculatePoints(match, pointScheme) {
     const result = {};
     if (match.score1 === match.score2) {
