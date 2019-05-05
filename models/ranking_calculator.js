@@ -18,7 +18,7 @@ const rankingCalculator = {
   updateGoalDifferences(teamsList, match) {
     const goalDifferences = this.calculateGoalDifferences(match);
     for (const result in goalDifferences) {
-      teamsList[result].goalDifference = goalDifferences[result];
+      teamsList[result].goalDifference += goalDifferences[result];
     }   
   },
 
@@ -40,7 +40,7 @@ const rankingCalculator = {
   updatePoints(teamsList, match, pointScheme) {
     const points = this.calculatePoints(match, pointScheme); 
     for (const result in points) {
-      teamsList[result].points = points[result];
+      teamsList[result].points += points[result];
     } 
   },
 
@@ -81,6 +81,12 @@ const rankingCalculator = {
   updateResultsForDay(teamsList, matches, pointsScheme) {
     matches.forEach(match => {
       this.updateResultsForMatch(teamsList, match, pointsScheme);
+    });
+  },
+
+  updateResultsForRounds(rounds, teamsList, pointsScheme) {
+    rounds.forEach((day) => {
+      this.updateResultsForDay(teamsList, day.matches, pointsScheme);
     });
   }
 
