@@ -36,7 +36,7 @@ describe('Ranking Calculator', () => {
     expect(calc.generateTeamList(matchDay1)).toEqual(teamList);
   });
 
-  test('calculate goal differences', () => {
+  test('calculate goal differences for a match', () => {
     expect(calc.calculateGoalDifferences(match)).toEqual({ hull: 1, leicester: -1 });
   });
 
