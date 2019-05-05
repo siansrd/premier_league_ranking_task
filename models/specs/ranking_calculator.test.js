@@ -49,6 +49,14 @@ describe('Ranking Calculator', () => {
     expect(teamsList[match.team2.key].goalDifference).toBe(-1);
   });
 
+  test('do not update goal differences for a match with a draw', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const teamsList = calc.generateTeamList(matchDay1);
+    calc.updateGoalDifferences(teamsList, drawMatch)
+    expect(teamsList[match.team1.key].goalDifference).toBe(0);
+    expect(teamsList[match.team2.key].goalDifference).toBe(0);
+  });
+
   test('calculate points for a match', () => {
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     expect(calc.calculatePoints(match, pointsScheme)).toEqual({ hull: 3, leicester: 0 });
