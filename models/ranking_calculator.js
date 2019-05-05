@@ -43,6 +43,13 @@ const rankingCalculator = {
     return result;
   },
 
+  updateWinsLosses(teamsList, match) {
+    const result = this.calculateWinnerLoser(match);
+    if (!result) return;
+    teamsList[result.winner].wins += 1;
+    teamsList[result.loser].losses +=1;
+  }
+
 }
 
 module.exports = rankingCalculator;
