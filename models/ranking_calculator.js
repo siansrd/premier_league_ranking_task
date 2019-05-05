@@ -9,11 +9,26 @@ const rankingCalculator = {
   },
 
   calculateGoalDifferences(match) {
-    result = {}
+    result = {};
     result[match.team1.key] = match.score1 - match.score2;
     result[match.team2.key] = match.score2 - match.score1;
     return result;
   },
+
+  calculatePoints(match, pointScheme) {
+    const result = {};
+    if (match.score1 === match.score2) {
+      result[match.team1.key] = pointScheme.draw;
+      result[match.team2.key] = pointScheme.draw;
+    } else if (match.score1 - match.score2 > 0) {
+      result[match.team1.key] = pointScheme.win;
+      result[match.team2.key] = pointScheme.loss;
+    } else {
+      result[match.team1.key] = pointScheme.loss;
+      result[match.team2.key] = pointScheme.win;
+    }
+    return result;
+  }
 
 }
 

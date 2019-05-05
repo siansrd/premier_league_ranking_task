@@ -40,4 +40,9 @@ describe('Ranking Calculator', () => {
     expect(calc.calculateGoalDifferences(match)).toEqual({ hull: 1, leicester: -1 });
   });
 
+  test('calculate points for a match', () => {
+    const pointsScheme = { win: 3, loss: 0, draw: 1};
+    expect(calc.calculatePoints(match, pointsScheme)).toEqual({ hull: 3, leicester: 0 });
+  });
+
 });
