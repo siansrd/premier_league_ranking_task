@@ -1,0 +1,14 @@
+{
+  "name": "english_premier_league_16_17",
+  "version": "1.0.0",
+  "description": "Calculates the ranking of the English Premier League teams",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "siansrd",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}
