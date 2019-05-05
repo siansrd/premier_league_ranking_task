@@ -121,11 +121,11 @@ describe('Ranking Calculator', () => {
     expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
   });
 
-  test('calculate wins/losses, goals for/against, goal difference and points for a match', () => {
+  test('update wins/losses, goals for/against, goal difference and points for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    calc.calculateResultsForMatch(teamsList, match, pointsScheme);
+    calc.updateResultsForMatch(teamsList, match, pointsScheme);
 
     expect(teamsList[match.team1.key].wins).toBe(1);
     expect(teamsList[match.team1.key].losses).toBe(0);

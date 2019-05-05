@@ -71,7 +71,7 @@ const rankingCalculator = {
     teamsList[match.team2.key].goalsAgainst += match.score1;
   },
 
-  calculateResultsForMatch(teamsList, match, pointScheme) {
+  updateResultsForMatch(teamsList, match, pointScheme) {
     this.updatePoints(teamsList, match, pointScheme);
     this.updateGoalDifferences(teamsList, match);
     this.updateGoals(teamsList, match);
