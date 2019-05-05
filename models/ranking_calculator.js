@@ -69,6 +69,13 @@ const rankingCalculator = {
     teamsList[match.team1.key].goalsAgainst += match.score2;
     teamsList[match.team2.key].goalsFor += match.score2;
     teamsList[match.team2.key].goalsAgainst += match.score1;
+  },
+
+  calculateResultsForMatch(teamsList, match, pointScheme) {
+    this.updatePoints(teamsList, match, pointScheme);
+    this.updateGoalDifferences(teamsList, match);
+    this.updateGoals(teamsList, match);
+    this.updateWinsLosses(teamsList, match);
   }
 
 }

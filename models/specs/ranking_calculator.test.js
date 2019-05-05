@@ -121,22 +121,27 @@ describe('Ranking Calculator', () => {
     expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
   });
 
-  xtest('calculate wins/losses, goals for/against, goal difference and points for a match', () => {
+  test('calculate wins/losses, goals for/against, goal difference and points for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
+    const pointsScheme = { win: 3, loss: 0, draw: 1};
+    calc.calculateResultsForMatch(teamsList, match, pointsScheme);
 
-    expect(teamsList[match.team1.key].wins).toBe(0);
+    expect(teamsList[match.team1.key].wins).toBe(1);
     expect(teamsList[match.team1.key].losses).toBe(0);
     expect(teamsList[match.team2.key].wins).toBe(0);
-    expect(teamsList[match.team2.key].losses).toBe(0);
+    expect(teamsList[match.team2.key].losses).toBe(1);
 
     expect(teamsList[match.team1.key].goalsFor).toBe(2);
     expect(teamsList[match.team1.key].goalsAgainst).toBe(1);
     expect(teamsList[match.team2.key].goalsFor).toBe(1);
     expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
 
-    expect(calc.calculateGoalDifferences(match)).toEqual({ hull: 1, leicester: -1 });
-    expect(calc.calculatePoints(match, pointsScheme)).toEqual({ hull: 3, leicester: 0 });
+    expect(teamsList[match.team1.key].goalDifference).toBe(1);
+    expect(teamsList[match.team2.key].goalDifference).toBe(-1);
+
+    expect(teamsList[match.team1.key].points).toBe(3);
+    expect(teamsList[match.team2.key].points).toBe(0);
   });
 
 });
