@@ -30,16 +30,18 @@ const rankingCalculator = {
     return result;
   },
 
-  calculateWinner(match) {
-    if (match.score1 === match.score2) {
-      return null;
-    } else if (match.score1 - match.score2 > 0) {
-      return match.team1;
+  calculateWinnerLoser(match) {
+    if (match.score1 === match.score2) return null;
+    const result = {};
+    if (match.score1 - match.score2 > 0) {
+      result.winner = match.team1.key;
+      result.loser = match.team2.key;
     } else {
-      return match.team2;
+      result.winner = match.team2.key;
+      result.loser = match.team1.key;
     }
-  }
-
+    return result;
+  },
 
 }
 

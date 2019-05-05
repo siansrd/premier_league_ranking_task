@@ -47,11 +47,19 @@ describe('Ranking Calculator', () => {
   });
 
   test('calculate winner for a match', () => {
-    expect(calc.calculateWinner(match)).toEqual({ key: 'hull', name: 'Hull City', code: 'HUL' });
+    expect(calc.calculateWinnerLoser(match)).toEqual({ winner: 'hull', loser: 'leicester' });
   });
 
   test('calculate no winner for a match when there is a draw', () => {
-    expect(calc.calculateWinner(drawMatch)).toBeNull();
+    expect(calc.calculateWinnerLoser(drawMatch)).toBeNull();
+  });
+
+  xtest('update teams wins and losses for a match', () => {
+    calc.updateWinsLosses(teamsList, match)
+    expect(teams[match.team1.key].wins).toBe(1);
+    expect(teams[match.team1.key].losses).toBe(0);
+    expect(teams[match.team2.key].wins).toBe(0);
+    expect(teams[match.team2.key].losses).toBe(1);
   });
 
 });
