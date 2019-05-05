@@ -1,6 +1,7 @@
 const calc = require('../ranking_calculator.js');
 const leagueData = require('../../data/16_17_league_data.json');
 const match = leagueData.rounds[0].matches[0];
+const drawMatch = leagueData.rounds[0].matches[4];
 
 describe('Ranking Calculator', () => {
 
@@ -47,6 +48,10 @@ describe('Ranking Calculator', () => {
 
   test('calculate winner for a match', () => {
     expect(calc.calculateWinner(match)).toEqual({ key: 'hull', name: 'Hull City', code: 'HUL' });
+  });
+
+  test('calculate no winner for a match when there is a draw', () => {
+    expect(calc.calculateWinner(drawMatch)).toBeNull();
   });
 
 });
