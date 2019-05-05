@@ -45,4 +45,8 @@ describe('Ranking Calculator', () => {
     expect(calc.calculatePoints(match, pointsScheme)).toEqual({ hull: 3, leicester: 0 });
   });
 
+  test('calculate winner for a match', () => {
+    expect(calc.calculateWinner(match)).toEqual({ key: 'hull', name: 'Hull City', code: 'HUL' });
+  });
+
 });

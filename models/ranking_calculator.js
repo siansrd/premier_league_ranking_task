@@ -28,7 +28,18 @@ const rankingCalculator = {
       result[match.team2.key] = pointScheme.win;
     }
     return result;
+  },
+
+  calculateWinner(match) {
+    if (match.score1 === match.score2) {
+      return null;
+    } else if (match.score1 - match.score2 > 0) {
+      return match.team1;
+    } else {
+      return match.team2;
+    }
   }
+
 
 }
 
