@@ -65,4 +65,15 @@ describe('Ranking Calculator', () => {
     expect(teamsList[match.team2.key].losses).toBe(1);
   });
 
+  test('does not update teams wins and losses when there is a draw', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const teamsList = calc.generateTeamList(matchDay1);
+    calc.updateWinsLosses(teamsList, drawMatch);
+
+    expect(teamsList[match.team1.key].wins).toBe(0);
+    expect(teamsList[match.team1.key].losses).toBe(0);
+    expect(teamsList[match.team2.key].wins).toBe(0);
+    expect(teamsList[match.team2.key].losses).toBe(0);
+  });
+
 });
