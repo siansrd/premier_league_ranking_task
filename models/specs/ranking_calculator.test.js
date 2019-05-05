@@ -1,5 +1,6 @@
 const calc = require('../ranking_calculator.js');
 const leagueData = require('../../data/16_17_league_data.json');
+const match = leagueData.rounds[0].matches[0];
 
 describe('Ranking Calculator', () => {
 
@@ -35,6 +36,8 @@ describe('Ranking Calculator', () => {
     expect(calc.generateTeamList(matchDay1)).toEqual(teamList);
   });
 
-
+  test('calculate goal difference for a team', () => {
+    expect(calc.calculateGoalDifference(match)).toEqual({ hull: 1, leicester: -1 });
+  });
 
 });
