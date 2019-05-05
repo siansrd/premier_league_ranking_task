@@ -37,6 +37,13 @@ const rankingCalculator = {
     return result;
   },
 
+  updatePoints(teamsList, match, pointScheme) {
+    const points = this.calculatePoints(match, pointScheme);
+    for (const result in points) {
+      teamsList[result].points = points[result];
+    } 
+  },
+
   calculateWinnerLoser(match) {
     if (match.score1 === match.score2) return null;
     const result = {};

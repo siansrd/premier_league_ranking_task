@@ -62,6 +62,15 @@ describe('Ranking Calculator', () => {
     expect(calc.calculatePoints(match, pointsScheme)).toEqual({ hull: 3, leicester: 0 });
   });
 
+  test('update points for a match', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const teamsList = calc.generateTeamList(matchDay1);
+    const pointsScheme = { win: 3, loss: 0, draw: 1};
+    calc.updatePoints(teamsList, match, pointsScheme);
+    expect(teamsList[match.team1.key].points).toBe(3);
+    expect(teamsList[match.team2.key].points).toBe(0);
+  });
+
   test('calculate winner for a match', () => {
     expect(calc.calculateWinnerLoser(match)).toEqual({ winner: 'hull', loser: 'leicester' });
   });
