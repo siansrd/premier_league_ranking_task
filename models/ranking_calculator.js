@@ -76,6 +76,12 @@ const rankingCalculator = {
     this.updateGoalDifferences(teamsList, match);
     this.updateGoals(teamsList, match);
     this.updateWinsLosses(teamsList, match);
+  },
+
+  updateResultsForDay(teamsList, matches, pointsScheme) {
+    matches.forEach(match => {
+      this.updateResultsForMatch(teamsList, match, pointsScheme);
+    });
   }
 
 }
