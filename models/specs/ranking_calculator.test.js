@@ -1,5 +1,5 @@
 const calc = require('../ranking_calculator.js');
-const leageData = require('../../data/16_17_league_data.json');
+const leagueData = require('../../data/16_17_league_data.json');
 
 describe('Ranking Calculator', () => {
 
@@ -31,7 +31,7 @@ describe('Ranking Calculator', () => {
       westham: { name: 'West Ham United', wins: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0 }
     }
 
-    const matchDay1 = leageData.rounds[0].matches;
+    const matchDay1 = leagueData.rounds[0].matches;
     expect(calc.generateTeamList(matchDay1)).toEqual(teamList);
   });
 
