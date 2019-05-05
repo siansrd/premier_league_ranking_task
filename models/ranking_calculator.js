@@ -8,7 +8,7 @@ const rankingCalculator = {
     }, {})
   },
 
-  calculateGoalDifference(match) {
+  calculateGoalDifferences(match) {
     result = {}
     result[match.team1.key] = match.score1 - match.score2;
     result[match.team2.key] = match.score2 - match.score1;
