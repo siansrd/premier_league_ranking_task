@@ -5,7 +5,7 @@ describe('Ranking Calculator', () => {
 
   test('calculator exists', () => {
     expect(calc).toBeTruthy();
-  })
+  });
 
   test('generate unique team list', () => {
     const teamList = {
@@ -33,6 +33,6 @@ describe('Ranking Calculator', () => {
 
     const matchDay1 = leageData.rounds[0].matches;
     expect(calc.generateTeamList(matchDay1)).toEqual(teamList);
-  })
+  });
 
 });
