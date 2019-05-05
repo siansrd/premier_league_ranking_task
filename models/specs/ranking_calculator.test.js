@@ -1,5 +1,5 @@
 const calc = require('../ranking_calculator.js');
-const leageData = require('../../data/16_17_league_data.json')
+const leageData = require('../../data/16_17_league_data.json');
 
 describe('Ranking Calculator', () => {
 
