@@ -38,7 +38,7 @@ const rankingCalculator = {
   },
 
   updatePoints(teamsList, match, pointScheme) {
-    const points = this.calculatePoints(match, pointScheme);
+    const points = this.calculatePoints(match, pointScheme); 
     for (const result in points) {
       teamsList[result].points = points[result];
     } 
