@@ -113,12 +113,12 @@ describe('Ranking Calculator', () => {
   test('update teams goals for and goals against for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateGoals(teamsList, match);
+    const teamsWithGoals = calc.updateGoals(teamsList, match);
 
-    expect(teamsList[match.team1.key].goalsFor).toBe(2);
-    expect(teamsList[match.team1.key].goalsAgainst).toBe(1);
-    expect(teamsList[match.team2.key].goalsFor).toBe(1);
-    expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
+    expect(teamsWithGoals[match.team1.key].goalsFor).toBe(2);
+    expect(teamsWithGoals[match.team1.key].goalsAgainst).toBe(1);
+    expect(teamsWithGoals[match.team2.key].goalsFor).toBe(1);
+    expect(teamsWithGoals[match.team2.key].goalsAgainst).toBe(2);
   });
 
   test('update wins/losses, goals for/against, goal difference and points for a match', () => {

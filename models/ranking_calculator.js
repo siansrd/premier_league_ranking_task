@@ -71,10 +71,12 @@ const rankingCalculator = {
   },
 
   updateGoals(teamsList, match) {
-    teamsList[match.team1.key].goalsFor += match.score1;
-    teamsList[match.team1.key].goalsAgainst += match.score2;
-    teamsList[match.team2.key].goalsFor += match.score2;
-    teamsList[match.team2.key].goalsAgainst += match.score1;
+    const teamsWithGoals = {...teamsList};
+    teamsWithGoals[match.team1.key].goalsFor += match.score1;
+    teamsWithGoals[match.team1.key].goalsAgainst += match.score2;
+    teamsWithGoals[match.team2.key].goalsFor += match.score2;
+    teamsWithGoals[match.team2.key].goalsAgainst += match.score1;
+    return teamsWithGoals;
   },
 
   updateResultsForMatch(teamsList, match, pointScheme) {
