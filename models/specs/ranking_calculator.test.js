@@ -91,23 +91,23 @@ describe('Ranking Calculator', () => {
   test('update teams wins and losses for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateWinsLosses(teamsList, match);
+    const teamsWithWinsLosses = calc.updateWinsLosses(teamsList, match);
 
-    expect(teamsList[match.team1.key].wins).toBe(1);
-    expect(teamsList[match.team1.key].losses).toBe(0);
-    expect(teamsList[match.team2.key].wins).toBe(0);
-    expect(teamsList[match.team2.key].losses).toBe(1);
+    expect(teamsWithWinsLosses[match.team1.key].wins).toBe(1);
+    expect(teamsWithWinsLosses[match.team1.key].losses).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].wins).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].losses).toBe(1);
   });
 
   test('does not update teams wins and losses when there is a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateWinsLosses(teamsList, drawMatch);
+    const teamsWithWinsLosses = calc.updateWinsLosses(teamsList, drawMatch);
 
-    expect(teamsList[match.team1.key].wins).toBe(0);
-    expect(teamsList[match.team1.key].losses).toBe(0);
-    expect(teamsList[match.team2.key].wins).toBe(0);
-    expect(teamsList[match.team2.key].losses).toBe(0);
+    expect(teamsWithWinsLosses[match.team1.key].wins).toBe(0);
+    expect(teamsWithWinsLosses[match.team1.key].losses).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].wins).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].losses).toBe(0);
   });
 
   test('update teams goals for and goals against for a match', () => {
