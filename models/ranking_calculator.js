@@ -102,9 +102,23 @@ const rankingCalculator = {
     return Object.keys(teamsList);
   },
 
+  getSortedTeamKeys(teamsList) {
+    const keys = this.getTeamKeys(teamsList);
+    keys.sort((teamKey1, teamKey2) => {
+      if (teamsList[teamKey1].points > teamsList[teamKey2].points) return -1;
+      if (teamsList[teamKey1].points < teamsList[teamKey2].points) return 1;
+      if (teamsList[teamKey1].goalDifference > teamsList[teamKey2].goalDifference) return -1;
+      if (teamsList[teamKey1].goalDifference < teamsList[teamKey2].goalDifference) return 1;
+      if (teamsList[teamKey1].goalsFor > teamsList[teamKey2].goalsFor) return -1;
+      if (teamsList[teamKey1].goalsFor < teamsList[teamKey2].goalsFor) return 1; 
+      return 0;
+    })
+    return keys;
+  },
+
   sortTeams(teamsList) {
     const teamKeys = this.getTeamKeys(teamsList);
-
+    
     teamKeys.sort((teamKey1, teamKey2) => {
       if (teamsList[teamKey1].points > teamsList[teamKey2].points) return -1;
       if (teamsList[teamKey1].points < teamsList[teamKey2].points) return 1;
@@ -114,7 +128,7 @@ const rankingCalculator = {
       if (teamsList[teamKey1].goalsFor < teamsList[teamKey2].goalsFor) return 1; 
       return 0;
     })
-
+    
     return teamKeys.map((teamKey, index) => {
       const team = teamsList[teamKey];
       team.rank = index + 1;
