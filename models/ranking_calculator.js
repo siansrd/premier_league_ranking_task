@@ -17,9 +17,11 @@ const rankingCalculator = {
 
   updateGoalDifferences(teamsList, match) {
     const goalDifferences = this.calculateGoalDifferences(match);
+    const teamsWithGD = {...teamsList}
     for (const result in goalDifferences) {
       teamsList[result].goalDifference += goalDifferences[result];
-    }   
+    }  
+    return teamsWithGD;
   },
 
   calculatePoints(match, pointScheme) {
