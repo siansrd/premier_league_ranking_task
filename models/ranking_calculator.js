@@ -15,7 +15,7 @@ const rankingCalculator = {
     return result;
   },
 
-  updateGoalDifferences(teamsList, match) {
+  assignGoalDifferences(teamsList, match) {
     const goalDifferences = this.calculateGoalDifferences(match);
     const teamsWithGD = {...teamsList}
     for (const result in goalDifferences) {
@@ -39,7 +39,7 @@ const rankingCalculator = {
     return result;
   },
 
-  updatePoints(teamsList, match, pointScheme) {
+  assignPoints(teamsList, match, pointScheme) {
     const points = this.calculatePoints(match, pointScheme); 
     const teamsWithPoints = {...teamsList};
     for (const result in points) {
@@ -61,7 +61,7 @@ const rankingCalculator = {
     return result;
   },
 
-  updateWinsLosses(teamsList, match) {
+  assignWinsLosses(teamsList, match) {
     const result = this.calculateWinnerLoser(match);
     if (!result) return teamsList;
     const teamsListWithWinsLosses = {...teamsList};
@@ -70,7 +70,7 @@ const rankingCalculator = {
     return teamsListWithWinsLosses;
   },
 
-  updateGoals(teamsList, match) {
+  assignGoals(teamsList, match) {
     const teamsWithGoals = {...teamsList};
     teamsWithGoals[match.team1.key].goalsFor += match.score1;
     teamsWithGoals[match.team1.key].goalsAgainst += match.score2;
@@ -79,22 +79,22 @@ const rankingCalculator = {
     return teamsWithGoals;
   },
 
-  updateResultsForMatch(teamsList, match, pointScheme) {
-    const teamsWithPoints = this.updatePoints(teamsList, match, pointScheme);
-    const teamsWithDG = this.updateGoalDifferences(teamsWithPoints, match);
-    const teamsWithGoals = this.updateGoals(teamsWithDG, match);
-    return this.updateWinsLosses(teamsWithGoals, match);
+  assignResultsForMatch(teamsList, match, pointScheme) {
+    const teamsWithPoints = this.assignPoints(teamsList, match, pointScheme);
+    const teamsWithDG = this.assignGoalDifferences(teamsWithPoints, match);
+    const teamsWithGoals = this.assignGoals(teamsWithDG, match);
+    return this.assignWinsLosses(teamsWithGoals, match);
   },
 
-  updateResultsForDay(teamsList, matches, pointsScheme) {
+  assignResultsForDay(teamsList, matches, pointsScheme) {
     return matches.reduce((teamsListWithValues, match) => {
-      return {...this.updateResultsForMatch(teamsList, match, pointsScheme)};
+      return {...this.assignResultsForMatch(teamsList, match, pointsScheme)};
     }, teamsList);
   },
 
-  updateResultsForRounds(rounds, teamsList, pointsScheme) {
+  assignResultsForRounds(rounds, teamsList, pointsScheme) {
     return rounds.reduce((teamsListWithValues, round) => {
-      return {...this.updateResultsForDay(teamsList, round.matches, pointsScheme)};
+      return {...this.assignResultsForDay(teamsList, round.matches, pointsScheme)};
     }, teamsList);
   },
 
