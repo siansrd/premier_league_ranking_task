@@ -213,7 +213,7 @@ describe('Ranking Calculator', () => {
   });
 
 
-  xtest('sort team list', () => {
+  test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const matchDay2 = leagueData.rounds[1].matches;
     const rounds = [{matches: matchDay1}, {matches: matchDay2}];
@@ -231,8 +231,8 @@ describe('Ranking Calculator', () => {
       { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 6 },
       { name: 'Tottenham Hotspur', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 4, rank: 7 },
       { name: 'Burnley', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3, rank: 8 },
-      { name: 'West Bromwich Albion', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 9 },
-      { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 10 },
+      { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 9 },
+      { name: 'West Bromwich Albion', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 10 },
       { name: 'Liverpool', wins: 1, losses: 1, goalsFor: 4, goalsAgainst: 5, goalDifference: -1, points: 3, rank: 11 },
       { name: 'Swansea', wins: 1, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 3, rank: 12 },
       { name: 'Arsenal', wins: 0, losses: 1, goalsFor: 3, goalsAgainst: 4, goalDifference: -1, points: 1, rank: 13 },
