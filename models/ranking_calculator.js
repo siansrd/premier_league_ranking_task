@@ -17,7 +17,7 @@ const rankingCalculator = {
 
   assignGoalDifferences(teamsList, match) {
     const goalDifferences = this.calculateGoalDifferences(match);
-    const teamsWithGD = {...teamsList}
+    const teamsWithGD = {...teamsList};
     for (const result in goalDifferences) {
       teamsList[result].goalDifference += goalDifferences[result];
     }  
