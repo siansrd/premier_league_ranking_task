@@ -117,7 +117,6 @@ const rankingCalculator = {
   },
 
   sortTeams(teamsList) {
-    const teamKeys = this.getTeamKeys(teamsList);
     const sortedKeys = this.getSortedTeamKeys(teamsList);
     
     return sortedKeys.map((teamKey, index) => {
