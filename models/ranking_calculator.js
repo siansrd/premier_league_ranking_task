@@ -80,10 +80,10 @@ const rankingCalculator = {
   },
 
   updateResultsForMatch(teamsList, match, pointScheme) {
-    this.updatePoints(teamsList, match, pointScheme);
-    this.updateGoalDifferences(teamsList, match);
-    this.updateGoals(teamsList, match);
-    this.updateWinsLosses(teamsList, match);
+    const teamsWithPoints = this.updatePoints(teamsList, match, pointScheme);
+    const teamsWithDG = this.updateGoalDifferences(teamsWithPoints, match);
+    const teamsWithGoals = this.updateGoals(teamsWithDG, match);
+    return this.updateWinsLosses(teamsWithGoals, match);
   },
 
   updateResultsForDay(teamsList, matches, pointsScheme) {
