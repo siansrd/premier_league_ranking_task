@@ -87,9 +87,9 @@ const rankingCalculator = {
   },
 
   updateResultsForDay(teamsList, matches, pointsScheme) {
-    matches.forEach(match => {
-      this.updateResultsForMatch(teamsList, match, pointsScheme);
-    });
+    return matches.reduce((teamsListWithValues, match) => {
+      return {...this.updateResultsForMatch(teamsList, match, pointsScheme)};
+    }, teamsList);
   },
 
   updateResultsForRounds(rounds, teamsList, pointsScheme) {

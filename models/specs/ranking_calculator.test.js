@@ -149,9 +149,9 @@ describe('Ranking Calculator', () => {
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    calc.updateResultsForDay(teamsList, matchDay1, pointsScheme)
+    const teamsWithValues =  calc.updateResultsForDay(teamsList, matchDay1, pointsScheme)
 
-    const updatedteamList = {
+    const expectedteamList = {
       hull: { name: 'Hull City', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3 }, 
       leicester: { name: 'Leicester City', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 0 }, 
       burnley: { name: 'Burnley', wins: 0, losses: 1, goalsFor: 0, goalsAgainst: 1, goalDifference: -1, points: 0 },
@@ -174,7 +174,7 @@ describe('Ranking Calculator', () => {
       westham: { name: 'West Ham United', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 0 }
     }
 
-    expect(teamsList).toEqual(updatedteamList);
+    expect(teamsWithValues).toEqual(expectedteamList);
   });
 
   test('update results for multiple days', () => {
