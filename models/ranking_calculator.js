@@ -123,7 +123,7 @@ const rankingCalculator = {
       const team = teamsList[teamKey];
       team.rank = index + 1;
       return team;
-    })   
+    });   
   }
 
 }
