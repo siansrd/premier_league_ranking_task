@@ -41,20 +41,20 @@ describe('Ranking Calculator', () => {
     expect(calc.calculateGoalDifferences(match)).toEqual({ hull: 1, leicester: -1 });
   });
 
-  test('update goal differences for a match', () => {
+  test('assign goal differences for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateGoalDifferences(teamsList, match)
-    expect(teamsList[match.team1.key].goalDifference).toBe(1);
-    expect(teamsList[match.team2.key].goalDifference).toBe(-1);
+    const teamsWithGD = calc.assignGoalDifferences(teamsList, match);
+    expect(teamsWithGD[match.team1.key].goalDifference).toBe(1);
+    expect(teamsWithGD[match.team2.key].goalDifference).toBe(-1);
   });
 
-  test('do not update goal differences for a match with a draw', () => {
+  test('do not assign goal differences for a match with a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateGoalDifferences(teamsList, drawMatch)
-    expect(teamsList[match.team1.key].goalDifference).toBe(0);
-    expect(teamsList[match.team2.key].goalDifference).toBe(0);
+    const teamsWithGD = calc.assignGoalDifferences(teamsList, drawMatch);
+    expect(teamsWithGD[match.team1.key].goalDifference).toBe(0);
+    expect(teamsWithGD[match.team2.key].goalDifference).toBe(0);
   });
 
   test('calculate points for a match', () => {
@@ -62,22 +62,22 @@ describe('Ranking Calculator', () => {
     expect(calc.calculatePoints(match, pointsScheme)).toEqual({ hull: 3, leicester: 0 });
   });
 
-  test('update points for a match with a win/lose', () => {
+  test('assign points for a match with a win/lose', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    calc.updatePoints(teamsList, match, pointsScheme);
-    expect(teamsList[match.team1.key].points).toBe(3);
-    expect(teamsList[match.team2.key].points).toBe(0);
+    const teamsWithPoints = calc.assignPoints(teamsList, match, pointsScheme);
+    expect(teamsWithPoints[match.team1.key].points).toBe(3);
+    expect(teamsWithPoints[match.team2.key].points).toBe(0);
   });
 
-  test('update points for a match with a draw', () => {
+  test('assign points for a match with a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    calc.updatePoints(teamsList, drawMatch, pointsScheme);
-    expect(teamsList[drawMatch.team1.key].points).toBe(1);
-    expect(teamsList[drawMatch.team2.key].points).toBe(1);
+    const teamsWithPoints = calc.assignPoints(teamsList, drawMatch, pointsScheme);
+    expect(teamsWithPoints[drawMatch.team1.key].points).toBe(1);
+    expect(teamsWithPoints[drawMatch.team2.key].points).toBe(1);
   });
 
   test('calculate winner for a match', () => {
@@ -88,70 +88,70 @@ describe('Ranking Calculator', () => {
     expect(calc.calculateWinnerLoser(drawMatch)).toBeNull();
   });
 
-  test('update teams wins and losses for a match', () => {
+  test('assign teams wins and losses for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateWinsLosses(teamsList, match);
+    const teamsWithWinsLosses = calc.assignWinsLosses(teamsList, match);
 
-    expect(teamsList[match.team1.key].wins).toBe(1);
-    expect(teamsList[match.team1.key].losses).toBe(0);
-    expect(teamsList[match.team2.key].wins).toBe(0);
-    expect(teamsList[match.team2.key].losses).toBe(1);
+    expect(teamsWithWinsLosses[match.team1.key].wins).toBe(1);
+    expect(teamsWithWinsLosses[match.team1.key].losses).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].wins).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].losses).toBe(1);
   });
 
-  test('does not update teams wins and losses when there is a draw', () => {
+  test('does not assign teams wins and losses when there is a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateWinsLosses(teamsList, drawMatch);
+    const teamsWithWinsLosses = calc.assignWinsLosses(teamsList, drawMatch);
 
-    expect(teamsList[match.team1.key].wins).toBe(0);
-    expect(teamsList[match.team1.key].losses).toBe(0);
-    expect(teamsList[match.team2.key].wins).toBe(0);
-    expect(teamsList[match.team2.key].losses).toBe(0);
+    expect(teamsWithWinsLosses[match.team1.key].wins).toBe(0);
+    expect(teamsWithWinsLosses[match.team1.key].losses).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].wins).toBe(0);
+    expect(teamsWithWinsLosses[match.team2.key].losses).toBe(0);
   });
 
-  test('update teams goals for and goals against for a match', () => {
+  test('assign teams goals for and goals against for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateGoals(teamsList, match);
+    const teamsWithGoals = calc.assignGoals(teamsList, match);
 
-    expect(teamsList[match.team1.key].goalsFor).toBe(2);
-    expect(teamsList[match.team1.key].goalsAgainst).toBe(1);
-    expect(teamsList[match.team2.key].goalsFor).toBe(1);
-    expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
+    expect(teamsWithGoals[match.team1.key].goalsFor).toBe(2);
+    expect(teamsWithGoals[match.team1.key].goalsAgainst).toBe(1);
+    expect(teamsWithGoals[match.team2.key].goalsFor).toBe(1);
+    expect(teamsWithGoals[match.team2.key].goalsAgainst).toBe(2);
   });
 
-  test('update wins/losses, goals for/against, goal difference and points for a match', () => {
+  test('assign wins/losses, goals for/against, goal difference and points for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    calc.updateResultsForMatch(teamsList, match, pointsScheme);
+    const completeTeamsForMatch = calc.assignResultsForMatch(teamsList, match, pointsScheme);
 
-    expect(teamsList[match.team1.key].wins).toBe(1);
-    expect(teamsList[match.team1.key].losses).toBe(0);
-    expect(teamsList[match.team2.key].wins).toBe(0);
-    expect(teamsList[match.team2.key].losses).toBe(1);
+    expect(completeTeamsForMatch[match.team1.key].wins).toBe(1);
+    expect(completeTeamsForMatch[match.team1.key].losses).toBe(0);
+    expect(completeTeamsForMatch[match.team2.key].wins).toBe(0);
+    expect(completeTeamsForMatch[match.team2.key].losses).toBe(1);
 
-    expect(teamsList[match.team1.key].goalsFor).toBe(2);
-    expect(teamsList[match.team1.key].goalsAgainst).toBe(1);
-    expect(teamsList[match.team2.key].goalsFor).toBe(1);
-    expect(teamsList[match.team2.key].goalsAgainst).toBe(2);
+    expect(completeTeamsForMatch[match.team1.key].goalsFor).toBe(2);
+    expect(completeTeamsForMatch[match.team1.key].goalsAgainst).toBe(1);
+    expect(completeTeamsForMatch[match.team2.key].goalsFor).toBe(1);
+    expect(completeTeamsForMatch[match.team2.key].goalsAgainst).toBe(2);
 
-    expect(teamsList[match.team1.key].goalDifference).toBe(1);
-    expect(teamsList[match.team2.key].goalDifference).toBe(-1);
+    expect(completeTeamsForMatch[match.team1.key].goalDifference).toBe(1);
+    expect(completeTeamsForMatch[match.team2.key].goalDifference).toBe(-1);
 
-    expect(teamsList[match.team1.key].points).toBe(3);
-    expect(teamsList[match.team2.key].points).toBe(0);
+    expect(completeTeamsForMatch[match.team1.key].points).toBe(3);
+    expect(completeTeamsForMatch[match.team2.key].points).toBe(0);
   });
 
-  test('update results for all matches in one day', () => {
+  test('assign results for all matches in one day', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    calc.updateResultsForDay(teamsList, matchDay1, pointsScheme)
+    const teamsWithValues =  calc.assignResultsForDay(teamsList, matchDay1, pointsScheme)
 
-    const updatedteamList = {
+    const expectedteamList = {
       hull: { name: 'Hull City', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3 }, 
       leicester: { name: 'Leicester City', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 0 }, 
       burnley: { name: 'Burnley', wins: 0, losses: 1, goalsFor: 0, goalsAgainst: 1, goalDifference: -1, points: 0 },
@@ -174,19 +174,19 @@ describe('Ranking Calculator', () => {
       westham: { name: 'West Ham United', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 0 }
     }
 
-    expect(teamsList).toEqual(updatedteamList);
+    expect(teamsWithValues).toEqual(expectedteamList);
   });
 
-  test('update results for multiple days', () => {
+  test('assign results for multiple days', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const matchDay2 = leagueData.rounds[1].matches;
     const rounds = [{matches: matchDay1}, {matches: matchDay2}];
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    calc.updateResultsForRounds(rounds, teamsList, pointsScheme);
+    const teamsWithValues = calc.assignResultsForRounds(rounds, teamsList, pointsScheme);
 
-    const updatedteamList = {
+    const expectedteamList = {
       hull: { name: 'Hull City', wins: 2, losses: 0, goalsFor: 4, goalsAgainst: 1, goalDifference: 3, points: 6 }, 
       leicester: { name: 'Leicester City', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 1 }, 
       burnley: { name: 'Burnley', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3 },
@@ -209,9 +209,31 @@ describe('Ranking Calculator', () => {
       westham: { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3 }
     };
 
-    expect(teamsList).toEqual(updatedteamList);
+    expect(teamsWithValues).toEqual(expectedteamList);
   });
 
+  test('get list of team keys', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const teamsList = calc.generateTeamList(matchDay1);
+    const teamKeys = calc.getTeamKeys(teamsList);
+
+    const expectedKeys = ['hull', 'leicester', 'burnley', 'swansea', 'crystalpalace', 'westbrom', 'everton', 'tottenham', 'middlesbrough', 'stoke', 'southampton', 'watford', 'mancity', 'sunderland', 'bournemouth', 'manutd', 'arsenal', 'liverpool', 'chelsea', 'westham']
+    expect(teamKeys).toEqual(expectedKeys);
+  });
+
+  test('get sorted list of team keys', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const matchDay2 = leagueData.rounds[1].matches;
+    const rounds = [{matches: matchDay1}, {matches: matchDay2}];
+    const teamsList = calc.generateTeamList(matchDay1);
+    const pointsScheme = { win: 3, loss: 0, draw: 1};
+    const completeList = calc.assignResultsForRounds(rounds, teamsList, pointsScheme);
+    
+    const sortedKeys = calc.getSortedTeamKeys(completeList);
+    
+    const expectedKeys = [ 'mancity', 'manutd', 'hull', 'chelsea', 'everton', 'middlesbrough', 'tottenham', 'burnley', 'westham', 'westbrom', 'liverpool', 'swansea', 'arsenal', 'watford', 'leicester', 'southampton', 'stoke', 'sunderland', 'crystalpalace', 'bournemouth' ];
+    expect(sortedKeys).toEqual(expectedKeys);
+  });
 
   test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
@@ -220,7 +242,7 @@ describe('Ranking Calculator', () => {
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    calc.updateResultsForRounds(rounds, teamsList, pointsScheme);
+    calc.assignResultsForRounds(rounds, teamsList, pointsScheme);
 
     const rankedTeamList = [
       { name: 'Manchester City', wins: 2, losses: 0, goalsFor: 6, goalsAgainst: 2, goalDifference: 4, points: 6, rank: 1 },
@@ -231,8 +253,8 @@ describe('Ranking Calculator', () => {
       { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 6 },
       { name: 'Tottenham Hotspur', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 4, rank: 7 },
       { name: 'Burnley', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3, rank: 8 },
-      { name: 'West Bromwich Albion', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 9 },
-      { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 10 },
+      { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 9 },
+      { name: 'West Bromwich Albion', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 10 },
       { name: 'Liverpool', wins: 1, losses: 1, goalsFor: 4, goalsAgainst: 5, goalDifference: -1, points: 3, rank: 11 },
       { name: 'Swansea', wins: 1, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 3, rank: 12 },
       { name: 'Arsenal', wins: 0, losses: 1, goalsFor: 3, goalsAgainst: 4, goalDifference: -1, points: 1, rank: 13 },

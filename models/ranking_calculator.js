@@ -15,11 +15,13 @@ const rankingCalculator = {
     return result;
   },
 
-  updateGoalDifferences(teamsList, match) {
+  assignGoalDifferences(teamsList, match) {
     const goalDifferences = this.calculateGoalDifferences(match);
+    const teamsWithGD = {...teamsList}
     for (const result in goalDifferences) {
       teamsList[result].goalDifference += goalDifferences[result];
-    }   
+    }  
+    return teamsWithGD;
   },
 
   calculatePoints(match, pointScheme) {
@@ -37,11 +39,13 @@ const rankingCalculator = {
     return result;
   },
 
-  updatePoints(teamsList, match, pointScheme) {
+  assignPoints(teamsList, match, pointScheme) {
     const points = this.calculatePoints(match, pointScheme); 
+    const teamsWithPoints = {...teamsList};
     for (const result in points) {
-      teamsList[result].points += points[result];
+      teamsWithPoints[result].points += points[result];
     } 
+    return teamsWithPoints;
   },
 
   calculateWinnerLoser(match) {
@@ -57,43 +61,50 @@ const rankingCalculator = {
     return result;
   },
 
-  updateWinsLosses(teamsList, match) {
+  assignWinsLosses(teamsList, match) {
     const result = this.calculateWinnerLoser(match);
-    if (!result) return;
-    teamsList[result.winner].wins += 1;
-    teamsList[result.loser].losses +=1;
+    if (!result) return teamsList;
+    const teamsListWithWinsLosses = {...teamsList};
+    teamsListWithWinsLosses[result.winner].wins += 1;
+    teamsListWithWinsLosses[result.loser].losses += 1;
+    return teamsListWithWinsLosses;
   },
 
-  updateGoals(teamsList, match) {
-    teamsList[match.team1.key].goalsFor += match.score1;
-    teamsList[match.team1.key].goalsAgainst += match.score2;
-    teamsList[match.team2.key].goalsFor += match.score2;
-    teamsList[match.team2.key].goalsAgainst += match.score1;
+  assignGoals(teamsList, match) {
+    const teamsWithGoals = {...teamsList};
+    teamsWithGoals[match.team1.key].goalsFor += match.score1;
+    teamsWithGoals[match.team1.key].goalsAgainst += match.score2;
+    teamsWithGoals[match.team2.key].goalsFor += match.score2;
+    teamsWithGoals[match.team2.key].goalsAgainst += match.score1;
+    return teamsWithGoals;
   },
 
-  updateResultsForMatch(teamsList, match, pointScheme) {
-    this.updatePoints(teamsList, match, pointScheme);
-    this.updateGoalDifferences(teamsList, match);
-    this.updateGoals(teamsList, match);
-    this.updateWinsLosses(teamsList, match);
+  assignResultsForMatch(teamsList, match, pointScheme) {
+    const teamsWithPoints = this.assignPoints(teamsList, match, pointScheme);
+    const teamsWithDG = this.assignGoalDifferences(teamsWithPoints, match);
+    const teamsWithGoals = this.assignGoals(teamsWithDG, match);
+    return this.assignWinsLosses(teamsWithGoals, match);
   },
 
-  updateResultsForDay(teamsList, matches, pointsScheme) {
-    matches.forEach(match => {
-      this.updateResultsForMatch(teamsList, match, pointsScheme);
-    });
+  assignResultsForDay(teamsList, matches, pointsScheme) {
+    return matches.reduce((teamsListWithValues, match) => {
+      return {...this.assignResultsForMatch(teamsList, match, pointsScheme)};
+    }, teamsList);
   },
 
-  updateResultsForRounds(rounds, teamsList, pointsScheme) {
-    rounds.forEach((day) => {
-      this.updateResultsForDay(teamsList, day.matches, pointsScheme);
-    });
+  assignResultsForRounds(rounds, teamsList, pointsScheme) {
+    return rounds.reduce((teamsListWithValues, round) => {
+      return {...this.assignResultsForDay(teamsList, round.matches, pointsScheme)};
+    }, teamsList);
   },
 
-  sortTeams(teamsList) {
-    const teamKeys = Object.keys(teamsList);
+  getTeamKeys(teamsList) {
+    return Object.keys(teamsList);
+  },
 
-    teamKeys.sort((teamKey1, teamKey2) => {
+  getSortedTeamKeys(teamsList) {
+    const keys = this.getTeamKeys(teamsList);
+    keys.sort((teamKey1, teamKey2) => {
       if (teamsList[teamKey1].points > teamsList[teamKey2].points) return -1;
       if (teamsList[teamKey1].points < teamsList[teamKey2].points) return 1;
       if (teamsList[teamKey1].goalDifference > teamsList[teamKey2].goalDifference) return -1;
@@ -102,8 +113,13 @@ const rankingCalculator = {
       if (teamsList[teamKey1].goalsFor < teamsList[teamKey2].goalsFor) return 1; 
       return 0;
     })
+    return keys;
+  },
 
-    return teamKeys.map((teamKey, index) => {
+  sortTeams(teamsList) {
+    const sortedKeys = this.getSortedTeamKeys(teamsList);
+    
+    return sortedKeys.map((teamKey, index) => {
       const team = teamsList[teamKey];
       team.rank = index + 1;
       return team;
