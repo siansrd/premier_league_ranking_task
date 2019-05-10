@@ -184,9 +184,9 @@ describe('Ranking Calculator', () => {
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    calc.updateResultsForRounds(rounds, teamsList, pointsScheme);
+    const teamsWithValues = calc.updateResultsForRounds(rounds, teamsList, pointsScheme);
 
-    const updatedteamList = {
+    const expectedteamList = {
       hull: { name: 'Hull City', wins: 2, losses: 0, goalsFor: 4, goalsAgainst: 1, goalDifference: 3, points: 6 }, 
       leicester: { name: 'Leicester City', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 1 }, 
       burnley: { name: 'Burnley', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3 },
@@ -209,7 +209,7 @@ describe('Ranking Calculator', () => {
       westham: { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3 }
     };
 
-    expect(teamsList).toEqual(updatedteamList);
+    expect(teamsWithValues).toEqual(expectedteamList);
   });
 
 
