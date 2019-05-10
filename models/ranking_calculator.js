@@ -103,7 +103,7 @@ const rankingCalculator = {
   },
 
   sortTeams(teamsList) {
-    const teamKeys = Object.keys(teamsList);
+    const teamKeys = this.getTeamKeys(teamsList);
 
     teamKeys.sort((teamKey1, teamKey2) => {
       if (teamsList[teamKey1].points > teamsList[teamKey2].points) return -1;
