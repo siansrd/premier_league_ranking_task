@@ -44,7 +44,7 @@ describe('Ranking Calculator', () => {
   test('update goal differences for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    const withGD = calc.updateGoalDifferences(teamsList, match)
+    const withGD = calc.updateGoalDifferences(teamsList, match);
     expect(withGD[match.team1.key].goalDifference).toBe(1);
     expect(withGD[match.team2.key].goalDifference).toBe(-1);
   });
@@ -52,9 +52,9 @@ describe('Ranking Calculator', () => {
   test('do not update goal differences for a match with a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
-    calc.updateGoalDifferences(teamsList, drawMatch)
-    expect(teamsList[match.team1.key].goalDifference).toBe(0);
-    expect(teamsList[match.team2.key].goalDifference).toBe(0);
+    const withGD = calc.updateGoalDifferences(teamsList, drawMatch);
+    expect(withGD[match.team1.key].goalDifference).toBe(0);
+    expect(withGD[match.team2.key].goalDifference).toBe(0);
   });
 
   test('calculate points for a match', () => {
