@@ -98,6 +98,10 @@ const rankingCalculator = {
     }, teamsList);
   },
 
+  getTeamKeys(teamsList) {
+    return Object.keys(teamsList);
+  },
+
   sortTeams(teamsList) {
     const teamKeys = Object.keys(teamsList);
 

@@ -212,6 +212,14 @@ describe('Ranking Calculator', () => {
     expect(teamsWithValues).toEqual(expectedteamList);
   });
 
+  test('get list of team keys', () => {
+    const matchDay1 = leagueData.rounds[0].matches;
+    const teamsList = calc.generateTeamList(matchDay1);
+    const teamKeys = calc.getTeamKeys(teamsList);
+
+    const expectedKeys = ['hull', 'leicester', 'burnley', 'swansea', 'crystalpalace', 'westbrom', 'everton', 'tottenham', 'middlesbrough', 'stoke', 'southampton', 'watford', 'mancity', 'sunderland', 'bournemouth', 'manutd', 'arsenal', 'liverpool', 'chelsea', 'westham']
+    expect(teamKeys).toEqual(expectedKeys);
+  });
 
   test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
