@@ -66,18 +66,18 @@ describe('Ranking Calculator', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    calc.updatePoints(teamsList, match, pointsScheme);
-    expect(teamsList[match.team1.key].points).toBe(3);
-    expect(teamsList[match.team2.key].points).toBe(0);
+    const teamsWithPoints = calc.updatePoints(teamsList, match, pointsScheme);
+    expect(teamsWithPoints[match.team1.key].points).toBe(3);
+    expect(teamsWithPoints[match.team2.key].points).toBe(0);
   });
 
   test('update points for a match with a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    calc.updatePoints(teamsList, drawMatch, pointsScheme);
-    expect(teamsList[drawMatch.team1.key].points).toBe(1);
-    expect(teamsList[drawMatch.team2.key].points).toBe(1);
+    const teamsWithPoints = calc.updatePoints(teamsList, drawMatch, pointsScheme);
+    expect(teamsWithPoints[drawMatch.team1.key].points).toBe(1);
+    expect(teamsWithPoints[drawMatch.team2.key].points).toBe(1);
   });
 
   test('calculate winner for a match', () => {
