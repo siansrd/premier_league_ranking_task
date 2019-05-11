@@ -261,7 +261,7 @@ describe('Ranking Calculator', () => {
     expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
-  xtest('sort team list', () => {
+  test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const matchDay2 = leagueData.rounds[1].matches;
     const rounds = [{matches: matchDay1}, {matches: matchDay2}];
