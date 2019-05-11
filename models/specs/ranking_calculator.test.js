@@ -235,6 +235,12 @@ describe('Ranking Calculator', () => {
     expect(sortedKeys).toEqual(expectedKeys);
   });
 
+  test('that two teams are equal in points, goal difference and goals for', () => {
+    const team1 = { name: 'Everton', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 };
+    const team2 = { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 };
+    expect(calc.teamsRankEqually(team1, team2)).toBe(true);
+  });
+
   test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const matchDay2 = leagueData.rounds[1].matches;
@@ -250,21 +256,21 @@ describe('Ranking Calculator', () => {
       { name: 'Hull City', wins: 2, losses: 0, goalsFor: 4, goalsAgainst: 1, goalDifference: 3, points: 6, rank: 3 }, 
       { name: 'Chelsea', wins: 2, losses: 0, goalsFor: 4, goalsAgainst: 2, goalDifference: 2, points: 6, rank: 4 },
       { name: 'Everton', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 },
-      { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 6 },
-      { name: 'Tottenham Hotspur', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 4, rank: 7 },
-      { name: 'Burnley', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3, rank: 8 },
-      { name: 'West Bromwich Albion', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 9 },
-      { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 10 },
-      { name: 'Liverpool', wins: 1, losses: 1, goalsFor: 4, goalsAgainst: 5, goalDifference: -1, points: 3, rank: 11 },
-      { name: 'Swansea', wins: 1, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 3, rank: 12 },
-      { name: 'Arsenal', wins: 0, losses: 1, goalsFor: 3, goalsAgainst: 4, goalDifference: -1, points: 1, rank: 13 },
-      { name: 'Watford', wins: 0, losses: 1, goalsFor: 2, goalsAgainst: 3, goalDifference: -1, points: 1, rank: 14 },
-      { name: 'Leicester City', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 1, rank: 15 }, 
-      { name: 'Southampton', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 3, goalDifference: -2, points: 1, rank: 16 },
-      { name: 'Stoke City', wins: 0, losses: 1, goalsFor: 2, goalsAgainst: 5, goalDifference: -3, points: 1, rank: 17 },
-      { name: 'Sunderland', wins: 0, losses: 2, goalsFor: 2, goalsAgainst: 4, goalDifference: -2, points: 0, rank: 18 },
-      { name: 'Crystal Palace', wins: 0, losses: 2, goalsFor: 0, goalsAgainst: 2, goalDifference: -2, points: 0, rank: 19 },
-      { name: 'Bournemouth', wins: 0, losses: 2, goalsFor: 1, goalsAgainst: 4, goalDifference: -3, points: 0, rank: 20 }
+      { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 },
+      { name: 'Tottenham Hotspur', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 4, rank: 6 },
+      { name: 'Burnley', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3, rank: 7 },
+      { name: 'West Bromwich Albion', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 8 },
+      { name: 'West Ham United', wins: 1, losses: 1, goalsFor: 2, goalsAgainst: 2, goalDifference: 0, points: 3, rank: 8 },
+      { name: 'Liverpool', wins: 1, losses: 1, goalsFor: 4, goalsAgainst: 5, goalDifference: -1, points: 3, rank: 9 },
+      { name: 'Swansea', wins: 1, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 3, rank: 10 },
+      { name: 'Arsenal', wins: 0, losses: 1, goalsFor: 3, goalsAgainst: 4, goalDifference: -1, points: 1, rank: 11 },
+      { name: 'Watford', wins: 0, losses: 1, goalsFor: 2, goalsAgainst: 3, goalDifference: -1, points: 1, rank: 12 },
+      { name: 'Leicester City', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 1, rank: 13 }, 
+      { name: 'Southampton', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 3, goalDifference: -2, points: 1, rank: 14 },
+      { name: 'Stoke City', wins: 0, losses: 1, goalsFor: 2, goalsAgainst: 5, goalDifference: -3, points: 1, rank: 15 },
+      { name: 'Sunderland', wins: 0, losses: 2, goalsFor: 2, goalsAgainst: 4, goalDifference: -2, points: 0, rank: 16 },
+      { name: 'Crystal Palace', wins: 0, losses: 2, goalsFor: 0, goalsAgainst: 2, goalDifference: -2, points: 0, rank: 17 },
+      { name: 'Bournemouth', wins: 0, losses: 2, goalsFor: 1, goalsAgainst: 4, goalDifference: -3, points: 0, rank: 18 }
     ];
     
     expect(calc.sortTeams(rankedTeams)).toEqual(rankedTeamList);

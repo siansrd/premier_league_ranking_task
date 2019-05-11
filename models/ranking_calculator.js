@@ -116,14 +116,31 @@ const rankingCalculator = {
     return keys;
   },
 
+  teamsRankEqually(team1, team2) {
+    return ( 
+      team1.points === team2.points 
+      && team1.goalDifference === team2.goalDifference 
+      && team1.goalsFor === team2.goalsFor 
+    ) 
+  },
+
   sortTeams(teamsList) {
     const sortedKeys = this.getSortedTeamKeys(teamsList);
-    
-    return sortedKeys.map((teamKey, index) => {
-      const team = teamsList[teamKey];
-      team.rank = index + 1;
-      return team;
-    });   
+
+    return sortedKeys.reduce((rankedTeams, teamKey, index) => {
+      const team = {...teamsList[teamKey]};
+      const prevTeam = rankedTeams[index - 1];
+      
+      if (index === 0) {
+        team.rank = 1
+      } else if (this.teamsRankEqually(prevTeam, team)) {
+        team.rank = prevTeam.rank
+      } else {
+        team.rank = prevTeam.rank + 1
+      }
+
+      return [...rankedTeams, team];
+    }, []);
   }
 
 }
