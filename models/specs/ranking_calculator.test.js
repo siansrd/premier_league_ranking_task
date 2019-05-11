@@ -247,6 +247,17 @@ describe('Ranking Calculator', () => {
     expect(calc.teamsRankEqually(team1, team2)).toBe(false);
   });
 
+  test('that team is assigned an rank', () => {
+    const prevTeam = { name: 'Manchester City', wins: 2, losses: 0, goalsFor: 6, goalsAgainst: 2, goalDifference: 4, points: 6, rank:1};
+    const team = { name: 'Manchester United', wins: 2, losses: 0, goalsFor: 5, goalsAgainst: 1, goalDifference: 4, points: 6};
+    const rankedTeam = { name: 'Manchester United', wins: 2, losses: 0, goalsFor: 5, goalsAgainst: 1, goalDifference: 4, points: 6, rank: 2 };
+    expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
+  });
+
+  xtest('that team is assigned a rank the same as another team', () => {
+
+  });
+
   test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const matchDay2 = leagueData.rounds[1].matches;

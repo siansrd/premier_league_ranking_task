@@ -124,22 +124,26 @@ const rankingCalculator = {
     ) 
   },
 
+  rankTeam(team, prevTeam, index) {
+    const rankedTeam = {...team};
+    if (index === 0) {
+      rankedTeam.rank = 1
+    } else if (this.teamsRankEqually(prevTeam, team)) {
+      rankedTeam.rank = prevTeam.rank
+    } else {
+      rankedTeam.rank = prevTeam.rank + 1
+    }
+    return rankedTeam;
+  },
+
   sortTeams(teamsList) {
     const sortedKeys = this.getSortedTeamKeys(teamsList);
 
     return sortedKeys.reduce((rankedTeams, teamKey, index) => {
-      const team = {...teamsList[teamKey]};
+      const team = teamsList[teamKey];
       const prevTeam = rankedTeams[index - 1];
-      
-      if (index === 0) {
-        team.rank = 1
-      } else if (this.teamsRankEqually(prevTeam, team)) {
-        team.rank = prevTeam.rank
-      } else {
-        team.rank = prevTeam.rank + 1
-      }
-
-      return [...rankedTeams, team];
+      const rankedTeam = this.rankTeam(team, prevTeam, index);
+      return [...rankedTeams, rankedTeam];
     }, []);
   }
 
