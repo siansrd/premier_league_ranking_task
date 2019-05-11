@@ -241,6 +241,12 @@ describe('Ranking Calculator', () => {
     expect(calc.teamsRankEqually(team1, team2)).toBe(true);
   });
 
+  test('that two teams are not equal in points, goal difference and goals for', () => {
+    const team1 = { name: 'Manchester City', wins: 2, losses: 0, goalsFor: 6, goalsAgainst: 2, goalDifference: 4, points: 6, rank: 1 };
+    const team2 = { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 };
+    expect(calc.teamsRankEqually(team1, team2)).toBe(false);
+  });
+
   test('sort team list', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const matchDay2 = leagueData.rounds[1].matches;
