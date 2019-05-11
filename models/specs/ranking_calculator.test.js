@@ -242,7 +242,7 @@ describe('Ranking Calculator', () => {
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    calc.assignResultsForRounds(rounds, teamsList, pointsScheme);
+    const rankedTeams = calc.assignResultsForRounds(rounds, teamsList, pointsScheme);
 
     const rankedTeamList = [
       { name: 'Manchester City', wins: 2, losses: 0, goalsFor: 6, goalsAgainst: 2, goalDifference: 4, points: 6, rank: 1 },
@@ -267,7 +267,7 @@ describe('Ranking Calculator', () => {
       { name: 'Bournemouth', wins: 0, losses: 2, goalsFor: 1, goalsAgainst: 4, goalDifference: -3, points: 0, rank: 20 }
     ];
     
-    expect(calc.sortTeams(teamsList)).toEqual(rankedTeamList);
+    expect(calc.sortTeams(rankedTeams)).toEqual(rankedTeamList);
   });
 
 });
