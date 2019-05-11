@@ -88,13 +88,13 @@ const rankingCalculator = {
 
   assignResultsForDay(teamsList, matches, pointsScheme) {
     return matches.reduce((teamsListWithValues, match) => {
-      return {...this.assignResultsForMatch(teamsList, match, pointsScheme)};
+      return {...this.assignResultsForMatch(teamsListWithValues, match, pointsScheme)};
     }, teamsList);
   },
 
   assignResultsForRounds(rounds, teamsList, pointsScheme) {
     return rounds.reduce((teamsListWithValues, round) => {
-      return {...this.assignResultsForDay(teamsList, round.matches, pointsScheme)};
+      return {...this.assignResultsForDay(teamsListWithValues, round.matches, pointsScheme)};
     }, teamsList);
   },
 
