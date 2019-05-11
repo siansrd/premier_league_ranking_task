@@ -254,8 +254,11 @@ describe('Ranking Calculator', () => {
     expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
-  xtest('that team is assigned a rank the same as another team', () => {
-
+  test('that team is assigned a rank the same as another team', () => {
+    const prevTeam = { name: 'Everton', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 };
+    const team = { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4 };
+    const rankedTeam = { name: 'Middlesbrough', wins: 1, losses: 0, goalsFor: 3, goalsAgainst: 2, goalDifference: 1, points: 4, rank: 5 };
+    expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
   test('sort team list', () => {
