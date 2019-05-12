@@ -149,7 +149,7 @@ describe('Ranking Calculator', () => {
     const teamsList = calc.generateTeamList(matchDay1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    const teamsWithValues =  calc.assignResultsForDay(teamsList, matchDay1, pointsScheme)
+    const teamsWithValues =  calc.assignResultsForDay(teamsList, matchDay1, pointsScheme);
 
     const expectedteamList = {
       hull: { name: 'Hull City', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3 }, 
@@ -172,7 +172,7 @@ describe('Ranking Calculator', () => {
       liverpool: { name: 'Liverpool', wins: 1, losses: 0, goalsFor: 4, goalsAgainst: 3, goalDifference: 1, points: 3 },
       chelsea: { name: 'Chelsea', wins: 1, losses: 0, goalsFor: 2, goalsAgainst: 1, goalDifference: 1, points: 3 },
       westham: { name: 'West Ham United', wins: 0, losses: 1, goalsFor: 1, goalsAgainst: 2, goalDifference: -1, points: 0 }
-    }
+    };
 
     expect(teamsWithValues).toEqual(expectedteamList);
   });
@@ -217,7 +217,7 @@ describe('Ranking Calculator', () => {
     const teamsList = calc.generateTeamList(matchDay1);
     const teamKeys = calc.getTeamKeys(teamsList);
 
-    const expectedKeys = ['hull', 'leicester', 'burnley', 'swansea', 'crystalpalace', 'westbrom', 'everton', 'tottenham', 'middlesbrough', 'stoke', 'southampton', 'watford', 'mancity', 'sunderland', 'bournemouth', 'manutd', 'arsenal', 'liverpool', 'chelsea', 'westham']
+    const expectedKeys = ['hull', 'leicester', 'burnley', 'swansea', 'crystalpalace', 'westbrom', 'everton', 'tottenham', 'middlesbrough', 'stoke', 'southampton', 'watford', 'mancity', 'sunderland', 'bournemouth', 'manutd', 'arsenal', 'liverpool', 'chelsea', 'westham'];
     expect(teamKeys).toEqual(expectedKeys);
   });
 

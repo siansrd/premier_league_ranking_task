@@ -126,11 +126,11 @@ const rankingCalculator = {
   rankTeam(team, prevTeam, index) {
     const rankedTeam = {...team};
     if (index === 0) {
-      rankedTeam.rank = 1
+      rankedTeam.rank = 1;
     } else if (this.teamsRankEqually(prevTeam, team)) {
-      rankedTeam.rank = prevTeam.rank
+      rankedTeam.rank = prevTeam.rank;
     } else {
-      rankedTeam.rank = prevTeam.rank + 1
+      rankedTeam.rank = prevTeam.rank + 1;
     }
     return rankedTeam;
   },
