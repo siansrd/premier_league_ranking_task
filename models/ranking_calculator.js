@@ -137,7 +137,6 @@ const rankingCalculator = {
 
   sortTeams(teamsList) {
     const sortedKeys = this.getSortedTeamKeys(teamsList);
-
     return sortedKeys.reduce((rankedTeams, teamKey, index) => {
       const team = teamsList[teamKey];
       const prevTeam = rankedTeams[index - 1];
