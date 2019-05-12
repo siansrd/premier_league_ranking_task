@@ -2,8 +2,21 @@ const rankingCalculator = {
 
   generateTeamList(matches) {
     return matches.reduce((list, {team1, team2}) => {
-      list[team1.key] = { name: team1.name, wins: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0 };
-      list[team2.key] = { name: team2.name, wins: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0 };
+      list[team1.key] = { 
+        name: team1.name, 
+        wins: 0, losses: 0, 
+        goalsFor: 0, 
+        goalsAgainst: 0, 
+        goalDifference: 0, 
+        points: 0 };
+      list[team2.key] = { 
+        name: team2.name, 
+        wins: 0, 
+        losses: 0, 
+        goalsFor: 0, 
+        goalsAgainst: 0, 
+        goalDifference: 0, 
+        points: 0 };
       return list;
     }, {})
   },
@@ -15,11 +28,11 @@ const rankingCalculator = {
     return result;
   },
 
-  assignGoalDifferences(teamsList, match) {
+  assignGoalDifferences(teams, match) {
     const goalDifferences = this.calculateGoalDifferences(match);
-    const teamsWithGD = {...teamsList};
+    const teamsWithGD = {...teams};
     for (const result in goalDifferences) {
-      teamsList[result].goalDifference += goalDifferences[result];
+      teams[result].goalDifference += goalDifferences[result];
     }  
     return teamsWithGD;
   },
@@ -39,9 +52,9 @@ const rankingCalculator = {
     return result;
   },
 
-  assignPoints(teamsList, match, pointScheme) {
+  assignPoints(teams, match, pointScheme) {
     const points = this.calculatePoints(match, pointScheme); 
-    const teamsWithPoints = {...teamsList};
+    const teamsWithPoints = {...teams};
     for (const result in points) {
       teamsWithPoints[result].points += points[result];
     } 
@@ -61,17 +74,17 @@ const rankingCalculator = {
     return result;
   },
 
-  assignWinsLosses(teamsList, match) {
+  assignWinsLosses(teams, match) {
     const result = this.calculateWinnerLoser(match);
-    if (!result) return teamsList;
-    const teamsListWithWinsLosses = {...teamsList};
-    teamsListWithWinsLosses[result.winner].wins += 1;
-    teamsListWithWinsLosses[result.loser].losses += 1;
-    return teamsListWithWinsLosses;
+    if (!result) return teams;
+    const teamsWithWinsLosses = {...teams};
+    teamsWithWinsLosses[result.winner].wins += 1;
+    teamsWithWinsLosses[result.loser].losses += 1;
+    return teamsWithWinsLosses;
   },
 
-  assignGoals(teamsList, match) {
-    const teamsWithGoals = {...teamsList};
+  assignGoals(teams, match) {
+    const teamsWithGoals = {...teams};
     teamsWithGoals[match.team1.key].goalsFor += match.score1;
     teamsWithGoals[match.team1.key].goalsAgainst += match.score2;
     teamsWithGoals[match.team2.key].goalsFor += match.score2;
@@ -79,36 +92,44 @@ const rankingCalculator = {
     return teamsWithGoals;
   },
 
-  assignResultsForMatch(teamsList, match, pointScheme) {
-    const teamsWithPoints = this.assignPoints(teamsList, match, pointScheme);
+  assignResultsForMatch(teams, match, pointScheme) {
+    const teamsWithPoints = this.assignPoints(teams, match, pointScheme);
     const teamsWithDG = this.assignGoalDifferences(teamsWithPoints, match);
     const teamsWithGoals = this.assignGoals(teamsWithDG, match);
     return this.assignWinsLosses(teamsWithGoals, match);
   },
 
-  assignResultsForDay(teamsList, matches, pointsScheme) {
-    return matches.reduce((teamsListWithValues, match) => {
-      return {...this.assignResultsForMatch(teamsListWithValues, match, pointsScheme)};
-    }, teamsList);
+  assignResultsForDay(teams, matches, pointsScheme) {
+    return matches.reduce((teamsWithValues, match) => {
+      return {...this.assignResultsForMatch(
+        teamsWithValues, 
+        match, 
+        pointsScheme
+      )};
+    }, teams);
   },
 
-  assignResultsForRounds(rounds, teamsList, pointsScheme) {
-    return rounds.reduce((teamsListWithValues, round) => {
-      return {...this.assignResultsForDay(teamsListWithValues, round.matches, pointsScheme)};
-    }, teamsList);
+  assignResultsForRounds(rounds, teams, pointsScheme) {
+    return rounds.reduce((teamsWithValues, round) => {
+      return {...this.assignResultsForDay(
+        teamsWithValues, 
+        round.matches, 
+        pointsScheme
+      )};
+    }, teams);
   },
 
-  getTeamKeys(teamsList) {
-    return Object.keys(teamsList);
+  getTeamKeys(teams) {
+    return Object.keys(teams);
   },
 
-  getSortedTeamKeys(teamsList) {
-    const keys = this.getTeamKeys(teamsList);
+  getSortedTeamKeys(teams) {
+    const keys = this.getTeamKeys(teams);
     keys.sort((teamKey1, teamKey2) => {
       return (
-        teamsList[teamKey2].points - teamsList[teamKey1].points 
-        || teamsList[teamKey2].goalDifference - teamsList[teamKey1].goalDifference 
-        || teamsList[teamKey2].goalsFor - teamsList[teamKey1].goalsFor
+        teams[teamKey2].points - teams[teamKey1].points 
+        || teams[teamKey2].goalDifference - teams[teamKey1].goalDifference 
+        || teams[teamKey2].goalsFor - teams[teamKey1].goalsFor
         || 0
       );
     });
@@ -135,10 +156,10 @@ const rankingCalculator = {
     return rankedTeam;
   },
 
-  sortTeams(teamsList) {
-    const sortedKeys = this.getSortedTeamKeys(teamsList);
+  sortTeams(teams) {
+    const sortedKeys = this.getSortedTeamKeys(teams);
     return sortedKeys.reduce((rankedTeams, teamKey, index) => {
-      const team = teamsList[teamKey];
+      const team = teams[teamKey];
       const prevTeam = rankedTeams[index - 1];
       const rankedTeam = this.rankTeam(team, prevTeam, index);
       return [...rankedTeams, rankedTeam];
