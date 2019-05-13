@@ -303,11 +303,11 @@ describe('Ranking Calculator', () => {
     expect(teamsWithResults[match.team2.key].points).toBe(0);
   });
 
-  test('assign results for all matches in one 1', () => {
+  test('assign results for all matches in one round', () => {
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
-    const teamsWithResults =  calc.assignResultsForDay(
+    const teamsWithResults =  calc.assignResultsForRound(
       teams, 
       round1, 
       pointsScheme

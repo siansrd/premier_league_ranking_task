@@ -99,7 +99,7 @@ const rankingCalculator = {
     return this.assignWinsLosses(teamsWithGoals, match);
   },
 
-  assignResultsForDay(teams, round, pointsScheme) {
+  assignResultsForRound(teams, round, pointsScheme) {
     return round.matches.reduce((teamsWithValues, match) => {
       return {...this.assignResultsForMatch(
         teamsWithValues, 
@@ -111,7 +111,7 @@ const rankingCalculator = {
 
   assignResultsForRounds(rounds, teams, pointsScheme) {
     return rounds.reduce((teamsWithValues, round) => {
-      return {...this.assignResultsForDay(
+      return {...this.assignResultsForRound(
         teamsWithValues, 
         round, 
         pointsScheme
