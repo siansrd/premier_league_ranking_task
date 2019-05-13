@@ -310,7 +310,7 @@ describe('Ranking Calculator', () => {
     expect(teamsWithResults[match.team2.key].points).toBe(0);
   });
 
-  test('assign results for all matches in one day', () => {
+  test('assign results for all matches in one round', () => {
     const round = leagueData.rounds[0];
     const teams = calc.generateTeamList(round);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
@@ -507,7 +507,7 @@ describe('Ranking Calculator', () => {
     expect(teamsWithResults).toEqual(expectedteams);
   });
 
-  test('assign results for multiple days', () => {
+  test('assign results for multiple rounds', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
     const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
