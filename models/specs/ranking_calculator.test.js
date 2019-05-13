@@ -1,5 +1,5 @@
 const calc = require('../ranking_calculator.js');
-const leagueData = require('../../data/16_17_league_data.json');
+const leagueData = require('../../data/16_17_league_data_selected.json');
 const round1 = leagueData.rounds[0];
 const match = leagueData.rounds[0].matches[0];
 const drawMatch = leagueData.rounds[0].matches[4];
@@ -504,7 +504,7 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign results for multiple rounds', () => {
-    const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
+    const rounds = leagueData.rounds;
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const expectedteams = {
@@ -728,7 +728,7 @@ describe('Ranking Calculator', () => {
   });
 
   test('get sorted list of team keys', () => {
-    const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
+    const rounds = leagueData.rounds;
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const completeList = calc.assignResultsForRounds(
@@ -881,7 +881,7 @@ describe('Ranking Calculator', () => {
   });
 
   test('sort team list', () => {
-    const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
+    const rounds = leagueData.rounds;
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const expectedRankedTeams = [
@@ -1098,8 +1098,7 @@ describe('Ranking Calculator', () => {
   test('get all rounds from league data', () => {
     const rounds = calc.getRounds(leagueData);
 
-    expect(rounds.length).toBe(38);
-    expect(rounds[0]).toEqual(round1);
+    expect(rounds).toEqual(leagueData.rounds);
   });
 
 });
