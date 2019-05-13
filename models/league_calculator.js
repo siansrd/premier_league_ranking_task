@@ -1,4 +1,4 @@
-const rankingCalculator = {
+const leagueCalculator = {
 
   generateTeamList(firstRound) {
     return firstRound.matches.reduce((list, {team1, team2}) => {
@@ -184,4 +184,4 @@ const rankingCalculator = {
 
 }
 
-module.exports = rankingCalculator;
+module.exports = leagueCalculator;

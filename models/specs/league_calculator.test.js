@@ -1,4 +1,4 @@
-const calc = require('../ranking_calculator.js');
+const calc = require('../league_calculator.js');
 const leagueData = require('../../data/16_17_league_data_selected.json');
 const round1 = leagueData.rounds[0];
 const match = leagueData.rounds[0].matches[0];
