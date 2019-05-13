@@ -198,12 +198,14 @@ describe('Ranking Calculator', () => {
 
   test('calculate goal differences for a match', () => {
     const expected = { hull: 1, leicester: -1 };
+
     expect(calc.calculateGoalDifferences(match)).toEqual(expected);
   });
 
   test('assign goal differences for a match', () => {
     const teams = calc.generateTeamList(round1);
     const teamsWithGD = calc.assignGoalDifferences(teams, match);
+
     expect(teamsWithGD[match.team1.key].goalDifference).toBe(1);
     expect(teamsWithGD[match.team2.key].goalDifference).toBe(-1);
   });
@@ -211,13 +213,15 @@ describe('Ranking Calculator', () => {
   test('do not assign goal differences for a match with a draw', () => {
     const teams = calc.generateTeamList(round1);
     const teamsWithGD = calc.assignGoalDifferences(teams, drawMatch);
+
     expect(teamsWithGD[match.team1.key].goalDifference).toBe(0);
     expect(teamsWithGD[match.team2.key].goalDifference).toBe(0);
   });
 
   test('calculate points for a match', () => {
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-    const expected = { hull: 3, leicester: 0 }
+    const expected = { hull: 3, leicester: 0 };
+
     expect(calc.calculatePoints(match, pointsScheme)).toEqual(expected);
   });
 
@@ -225,6 +229,7 @@ describe('Ranking Calculator', () => {
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const teamsWithPoints = calc.assignPoints(teams, match, pointsScheme);
+
     expect(teamsWithPoints[match.team1.key].points).toBe(3);
     expect(teamsWithPoints[match.team2.key].points).toBe(0);
   });
@@ -233,12 +238,14 @@ describe('Ranking Calculator', () => {
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const teamsWithPoints = calc.assignPoints(teams, drawMatch, pointsScheme);
+
     expect(teamsWithPoints[drawMatch.team1.key].points).toBe(1);
     expect(teamsWithPoints[drawMatch.team2.key].points).toBe(1);
   });
 
   test('calculate winner and loser for a match', () => {
-    const expected = { winner: 'hull', loser: 'leicester' }
+    const expected = { winner: 'hull', loser: 'leicester' };
+
     expect(calc.calculateWinnerLoser(match)).toEqual(expected);
   });
 
@@ -721,6 +728,7 @@ describe('Ranking Calculator', () => {
       'chelsea', 
       'westham'
     ];
+    
     expect(teamKeys).toEqual(expectedKeys);
   });
 
@@ -736,7 +744,6 @@ describe('Ranking Calculator', () => {
     );
     
     const sortedKeys = calc.getSortedTeamKeys(completeList);
-    
     const expectedKeys = [ 
       'mancity', 
       'manutd', 
@@ -758,6 +765,7 @@ describe('Ranking Calculator', () => {
       'sunderland', 
       'crystalpalace', 
       'bournemouth' ];
+    
     expect(sortedKeys).toEqual(expectedKeys);
   });
 
@@ -782,6 +790,7 @@ describe('Ranking Calculator', () => {
       points: 4, 
       rank: 5 
     };
+
     expect(calc.teamsRankEqually(team1, team2)).toBe(true);
   });
 
@@ -806,6 +815,7 @@ describe('Ranking Calculator', () => {
       points: 4, 
       rank: 5 
     };
+
     expect(calc.teamsRankEqually(team1, team2)).toBe(false);
   });
 
@@ -839,6 +849,7 @@ describe('Ranking Calculator', () => {
       points: 6, 
       rank: 2 
     };
+
     expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
@@ -872,6 +883,7 @@ describe('Ranking Calculator', () => {
       points: 4, 
       rank: 5 
     };
+    
     expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
