@@ -157,7 +157,7 @@ const rankingCalculator = {
     return rankedTeam;
   },
 
-  sortTeams(teams) {
+  rankTeams(teams) {
     const sortedKeys = this.getSortedTeamKeys(teams);
     return sortedKeys.reduce((rankedTeams, teamKey, index) => {
       const team = teams[teamKey];
@@ -174,12 +174,12 @@ const rankingCalculator = {
   createPremierLeagueTable(leagueData, pointsScheme) {
     const rounds = this.getRounds(leagueData);
     const teams = this.generateTeamList(rounds[0]);
-    const rankedTeams = this.assignResultsForRounds(
+    const teamsWithResults = this.assignResultsForRounds(
       rounds, 
       teams, 
       pointsScheme
     );
-    return this.sortTeams(rankedTeams);
+    return this.rankTeams(teamsWithResults);
   }
 
 }

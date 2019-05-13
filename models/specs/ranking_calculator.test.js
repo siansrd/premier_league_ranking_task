@@ -880,7 +880,7 @@ describe('Ranking Calculator', () => {
     expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
-  test('sort team list', () => {
+  test('rank team list', () => {
     const rounds = leagueData.rounds;
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
@@ -1092,7 +1092,7 @@ describe('Ranking Calculator', () => {
       pointsScheme
     );
     
-    expect(calc.sortTeams(rankedTeams)).toEqual(expectedRankedTeams);
+    expect(calc.rankTeams(rankedTeams)).toEqual(expectedRankedTeams);
   });
 
   test('get all rounds from league data', () => {
