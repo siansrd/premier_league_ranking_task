@@ -1,5 +1,6 @@
 const calc = require('../ranking_calculator.js');
 const leagueData = require('../../data/16_17_league_data.json');
+const round1 = leagueData.rounds[0];
 const match = leagueData.rounds[0].matches[0];
 const drawMatch = leagueData.rounds[0].matches[4];
 
@@ -192,7 +193,6 @@ describe('Ranking Calculator', () => {
       }
     }
 
-    const round1 = leagueData.rounds[0];
     expect(calc.generateTeamList(round1)).toEqual(teams);
   });
 
@@ -202,7 +202,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign goal differences for a match', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const teamsWithGD = calc.assignGoalDifferences(teams, match);
     expect(teamsWithGD[match.team1.key].goalDifference).toBe(1);
@@ -210,7 +209,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('do not assign goal differences for a match with a draw', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const teamsWithGD = calc.assignGoalDifferences(teams, drawMatch);
     expect(teamsWithGD[match.team1.key].goalDifference).toBe(0);
@@ -224,7 +222,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign points for a match with a win/lose', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const teamsWithPoints = calc.assignPoints(teams, match, pointsScheme);
@@ -233,7 +230,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign points for a match with a draw', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const teamsWithPoints = calc.assignPoints(teams, drawMatch, pointsScheme);
@@ -251,7 +247,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign wins and losses to teams for a match', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const teamsWithWinsLosses = calc.assignWinsLosses(teams, match);
 
@@ -262,7 +257,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('does not assign wins and losses to teams when there is a draw', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const teamsWithWinsLosses = calc.assignWinsLosses(teams, drawMatch);
 
@@ -273,7 +267,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign teams goals for and goals against for a match', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const teamsWithGoals = calc.assignGoals(teams, match);
 
@@ -310,14 +303,13 @@ describe('Ranking Calculator', () => {
     expect(teamsWithResults[match.team2.key].points).toBe(0);
   });
 
-  test('assign results for all matches in one round', () => {
-    const round = leagueData.rounds[0];
-    const teams = calc.generateTeamList(round);
+  test('assign results for all matches in one 1', () => {
+    const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
     const teamsWithResults =  calc.assignResultsForDay(
       teams, 
-      round, 
+      round1, 
       pointsScheme
     );
 
