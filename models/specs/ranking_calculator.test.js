@@ -241,7 +241,7 @@ describe('Ranking Calculator', () => {
     expect(teamsWithPoints[drawMatch.team2.key].points).toBe(1);
   });
 
-  test('calculate winner for a match', () => {
+  test('calculate winner and loser for a match', () => {
     const expected = { winner: 'hull', loser: 'leicester' }
     expect(calc.calculateWinnerLoser(match)).toEqual(expected);
   });
@@ -250,7 +250,7 @@ describe('Ranking Calculator', () => {
     expect(calc.calculateWinnerLoser(drawMatch)).toBeNull();
   });
 
-  test('assign teams wins and losses for a match', () => {
+  test('assign wins and losses to teams for a match', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teams = calc.generateTeamList(matchDay1);
     const teamsWithWinsLosses = calc.assignWinsLosses(teams, match);
@@ -261,7 +261,7 @@ describe('Ranking Calculator', () => {
     expect(teamsWithWinsLosses[match.team2.key].losses).toBe(1);
   });
 
-  test('does not assign teams wins and losses when there is a draw', () => {
+  test('does not assign wins and losses to teams when there is a draw', () => {
     const matchDay1 = leagueData.rounds[0].matches;
     const teams = calc.generateTeamList(matchDay1);
     const teamsWithWinsLosses = calc.assignWinsLosses(teams, drawMatch);
@@ -1101,6 +1101,14 @@ describe('Ranking Calculator', () => {
     ];
     
     expect(calc.sortTeams(rankedTeams)).toEqual(rankedTeamList);
+  });
+
+  test('get all from league data', () => {
+    const round1 = leagueData.rounds[0];
+    const rounds = calc.getRounds(leagueData);
+    
+    expect(rounds.length).toBe(38);
+    expect(rounds[0]).toEqual(round1);
   });
 
 });

@@ -164,6 +164,10 @@ const rankingCalculator = {
       const rankedTeam = this.rankTeam(team, prevTeam, index);
       return [...rankedTeams, rankedTeam];
     }, []);
+  },
+
+  getRounds(leagueData) {
+    return leagueData.rounds;
   }
 
 }
