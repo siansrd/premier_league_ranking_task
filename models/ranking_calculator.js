@@ -1,7 +1,7 @@
 const rankingCalculator = {
 
-  generateTeamList(matches) {
-    return matches.reduce((list, {team1, team2}) => {
+  generateTeamList(firstRound) {
+    return firstRound.matches.reduce((list, {team1, team2}) => {
       list[team1.key] = { 
         name: team1.name, 
         wins: 0, losses: 0, 
@@ -99,8 +99,8 @@ const rankingCalculator = {
     return this.assignWinsLosses(teamsWithGoals, match);
   },
 
-  assignResultsForDay(teams, matches, pointsScheme) {
-    return matches.reduce((teamsWithValues, match) => {
+  assignResultsForDay(teams, round, pointsScheme) {
+    return round.matches.reduce((teamsWithValues, match) => {
       return {...this.assignResultsForMatch(
         teamsWithValues, 
         match, 
@@ -113,7 +113,7 @@ const rankingCalculator = {
     return rounds.reduce((teamsWithValues, round) => {
       return {...this.assignResultsForDay(
         teamsWithValues, 
-        round.matches, 
+        round, 
         pointsScheme
       )};
     }, teams);
@@ -168,7 +168,7 @@ const rankingCalculator = {
 
   getRounds(leagueData) {
     return leagueData.rounds;
-  }
+  },
 
 }
 
