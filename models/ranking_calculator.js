@@ -167,7 +167,7 @@ const rankingCalculator = {
   },
 
   getRounds(leagueData) {
-    return leagueData.rounds;
+    return [...leagueData.rounds];
   },
 
 }
