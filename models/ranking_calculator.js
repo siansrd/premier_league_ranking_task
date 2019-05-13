@@ -171,6 +171,17 @@ const rankingCalculator = {
     return [...leagueData.rounds];
   },
 
+  createPremierLeagueTable(leagueData, pointsScheme) {
+    const rounds = this.getRounds(leagueData);
+    const teams = this.generateTeamList(rounds[0]);
+    const rankedTeams = this.assignResultsForRounds(
+      rounds, 
+      teams, 
+      pointsScheme
+    );
+    return this.sortTeams(rankedTeams);
+  }
+
 }
 
 module.exports = rankingCalculator;
