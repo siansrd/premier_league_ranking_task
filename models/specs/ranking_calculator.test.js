@@ -277,7 +277,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('assign wins/losses, goals for/against, goal difference and points for a match', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
     const teamsWithResults = calc.assignResultsForMatch(
@@ -501,7 +500,6 @@ describe('Ranking Calculator', () => {
 
   test('assign results for multiple rounds', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
@@ -698,7 +696,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('get list of team keys', () => {
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const teamKeys = calc.getTeamKeys(teams);
 
@@ -729,7 +726,6 @@ describe('Ranking Calculator', () => {
 
   test('get sorted list of team keys', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
@@ -881,7 +877,6 @@ describe('Ranking Calculator', () => {
 
   test('sort team list', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
-    const round1 = leagueData.rounds[0];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
 
@@ -1098,7 +1093,6 @@ describe('Ranking Calculator', () => {
   });
 
   test('get all rounds from league data', () => {
-    const round1 = leagueData.rounds[0];
     const rounds = calc.getRounds(leagueData);
 
     expect(rounds.length).toBe(38);
