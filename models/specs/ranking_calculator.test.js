@@ -312,13 +312,6 @@ describe('Ranking Calculator', () => {
   test('assign results for all matches in one round', () => {
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-
-    const teamsWithResults =  calc.assignResultsForRound(
-      teams, 
-      round1, 
-      pointsScheme
-    );
-
     const expectedteams = {
       hull: { 
         name: 'Hull City', 
@@ -501,6 +494,11 @@ describe('Ranking Calculator', () => {
         points: 0 
       }
     };
+    const teamsWithResults =  calc.assignResultsForRound(
+      teams, 
+      round1, 
+      pointsScheme
+    );
 
     expect(teamsWithResults).toEqual(expectedteams);
   });
@@ -509,13 +507,6 @@ describe('Ranking Calculator', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-
-    const teamsWithResults = calc.assignResultsForRounds(
-      rounds, 
-      teams, 
-      pointsScheme
-    );
-
     const expectedteams = {
       hull: { 
         name: 'Hull City', 
@@ -698,14 +689,17 @@ describe('Ranking Calculator', () => {
         points: 3 
       }
     };
+    const teamsWithResults = calc.assignResultsForRounds(
+      rounds, 
+      teams, 
+      pointsScheme
+    );
 
     expect(teamsWithResults).toEqual(expectedteams);
   });
 
   test('get list of team keys', () => {
     const teams = calc.generateTeamList(round1);
-    const teamKeys = calc.getTeamKeys(teams);
-
     const expectedKeys = [
       'hull', 
       'leicester', 
@@ -728,6 +722,7 @@ describe('Ranking Calculator', () => {
       'chelsea', 
       'westham'
     ];
+    const teamKeys = calc.getTeamKeys(teams);
     
     expect(teamKeys).toEqual(expectedKeys);
   });
@@ -736,14 +731,11 @@ describe('Ranking Calculator', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-
     const completeList = calc.assignResultsForRounds(
       rounds, 
       teams, 
       pointsScheme
     );
-    
-    const sortedKeys = calc.getSortedTeamKeys(completeList);
     const expectedKeys = [ 
       'mancity', 
       'manutd', 
@@ -765,7 +757,8 @@ describe('Ranking Calculator', () => {
       'sunderland', 
       'crystalpalace', 
       'bournemouth' ];
-    
+    const sortedKeys = calc.getSortedTeamKeys(completeList);
+
     expect(sortedKeys).toEqual(expectedKeys);
   });
 
@@ -883,7 +876,7 @@ describe('Ranking Calculator', () => {
       points: 4, 
       rank: 5 
     };
-    
+
     expect(calc.rankTeam(team, prevTeam, prevTeam.rank)).toEqual(rankedTeam);
   });
 
@@ -891,14 +884,7 @@ describe('Ranking Calculator', () => {
     const rounds = [leagueData.rounds[0], leagueData.rounds[1]];
     const teams = calc.generateTeamList(round1);
     const pointsScheme = { win: 3, loss: 0, draw: 1};
-
-    const rankedTeams = calc.assignResultsForRounds(
-      rounds, 
-      teams, 
-      pointsScheme
-    );
-
-    const rankedTeamList = [
+    const expectedRankedTeams = [
       { 
         name: 'Manchester City', 
         wins: 2, 
@@ -1100,8 +1086,13 @@ describe('Ranking Calculator', () => {
         rank: 18 
       }
     ];
+    const rankedTeams = calc.assignResultsForRounds(
+      rounds, 
+      teams, 
+      pointsScheme
+    );
     
-    expect(calc.sortTeams(rankedTeams)).toEqual(rankedTeamList);
+    expect(calc.sortTeams(rankedTeams)).toEqual(expectedRankedTeams);
   });
 
   test('get all rounds from league data', () => {
